@@ -1,4 +1,4 @@
-# The Hobbit — Simulador de Booster
+# Magic Booster — Simulador de Booster
 
 Projeto separado em 3 arquivos, pronto pra abrir no VS Code:
 
@@ -92,8 +92,10 @@ localStorage.clear(); location.reload();
 Ou só resetar a coleta diária de moeda:
 
 ```js
-localStorage.removeItem('hobbitBoosterLastCoinClaim'); location.reload();
+localStorage.removeItem('magicBoosterLastCoinClaim'); location.reload();
 ```
+
+Os nomes salvos no `localStorage` foram ajustados de `hobbitBooster*` para `magicBooster*`; se houver dados antigos, a migração acontece automaticamente ao carregar a página.
 
 ## Deploy
 

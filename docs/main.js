@@ -33,8 +33,8 @@
 /* Edições disponíveis na Loja. Pra adicionar uma nova coleção, basta
    incluir mais uma entrada aqui com o código do set na Scryfall. */
 const SETS = [
-  { code:'hob', name:'The Hobbit', mark:'HOB', boxImage:'imagens/HOB - BOX.png', packImage:'imagens/HOB - BOOSTER.png' },
-  { code:'fra', name:'Reality Fracture', mark:'FRA', boxImage:'imagens/FRC - BOX.png', packImage:'imagens/FRC - BOOSTER.png' }
+  { code:'hob', name:'The Hobbit', mark:'HOB', boxImage:'../imagens/HOB - BOX.png', packImage:'../imagens/HOB - BOOSTER.png' },
+  { code:'fra', name:'Reality Fracture', mark:'FRA', boxImage:'../imagens/FRC - BOX.png', packImage:'../imagens/FRC - BOOSTER.png' }
 ];
 const SET_BY_CODE = Object.fromEntries(SETS.map(s => [s.code, s]));
 
@@ -67,18 +67,44 @@ const PACKS_PER_BOX = 30;
 
 /* Cache guarda um objeto { [setCode]: { timestamp, cards } } — assim cada
    edição tem sua própria janela de validade sem sobrescrever as outras. */
-const SET_CACHE_KEY = 'hobbitBoosterSetCache';
+const LEGACY_SET_CACHE_KEY = 'hobbitBoosterSetCache';
+const SET_CACHE_KEY = 'magicBoosterSetCache';
 const SET_CACHE_TTL = 6 * 60 * 60 * 1000; // 6h — dá tempo dos preços da Scryfall atualizarem
 /* Coleção e estoque continuam num único armazenamento global: os ids de
    carta da Scryfall são únicos entre edições, então não há risco de
    colisão mesmo guardando cartas de vários sets juntas — e assim a
    coleção/mochila já mostram tudo junto, agrupado por edição na hora de
    renderizar. */
-const COLLECTION_KEY = 'hobbitBoosterCollection';
-const STOCK_KEY = 'hobbitBoosterStock'; // pacotinhos já recebidos mas ainda não abertos
-const COIN_BALANCE_KEY = 'hobbitBoosterCoins';
-const LAST_COIN_CLAIM_KEY = 'hobbitBoosterLastCoinClaim';
+const LEGACY_COLLECTION_KEY = 'hobbitBoosterCollection';
+const COLLECTION_KEY = 'magicBoosterCollection';
+const LEGACY_STOCK_KEY = 'hobbitBoosterStock'; // pacotinhos já recebidos mas ainda não abertos
+const STOCK_KEY = 'magicBoosterStock';
+const LEGACY_COIN_BALANCE_KEY = 'hobbitBoosterCoins';
+const COIN_BALANCE_KEY = 'magicBoosterCoins';
+const LEGACY_LAST_COIN_CLAIM_KEY = 'hobbitBoosterLastCoinClaim';
+const LAST_COIN_CLAIM_KEY = 'magicBoosterLastCoinClaim';
 const BOX_PRICE = 1; // em moedas
+
+function migrateLegacyStorageKeys(){
+  const migrations = [
+    [LEGACY_SET_CACHE_KEY, SET_CACHE_KEY],
+    [LEGACY_COLLECTION_KEY, COLLECTION_KEY],
+    [LEGACY_STOCK_KEY, STOCK_KEY],
+    [LEGACY_COIN_BALANCE_KEY, COIN_BALANCE_KEY],
+    [LEGACY_LAST_COIN_CLAIM_KEY, LAST_COIN_CLAIM_KEY]
+  ];
+
+  for (const [legacyKey, currentKey] of migrations){
+    try{
+      const legacyValue = localStorage.getItem(legacyKey);
+      if(legacyValue !== null && localStorage.getItem(currentKey) === null){
+        localStorage.setItem(currentKey, legacyValue);
+      }
+    }catch(e){ /* localStorage indisponível ou bloqueado — ignora a migração */ }
+  }
+}
+
+migrateLegacyStorageKeys();
 
 /* ---------------- Busca na Scryfall ---------------- */
 
@@ -615,7 +641,7 @@ revealOverlay.addEventListener('click', (e) => {
    cartas ordenadas pelo número de coleção (001, 002...). Cartas ainda não
    descobertas aparecem como espaço vazio cinza com "?" no lugar da arte. */
 /* Guarda quais seções (por setCode) estão minimizadas na Coleção. */
-const COLLAPSE_KEY = 'hobbitBoosterCollapsedSets';
+const COLLAPSE_KEY = 'magicBoosterCollapsedSets';
 function loadCollapsedSets(){
   try{ return JSON.parse(localStorage.getItem(COLLAPSE_KEY)) || {}; }catch(e){ return {}; }
 }
