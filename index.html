@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Hobbit — Simulador de Booster</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow-rune">✦ Universos Além — Terra-média ✦</p>
+    <h1>THE HOBBIT<span>Simulador de Booster · 15 cartas por pacote</span></h1>
+    <p class="subline">Clique no pacote lacrado pra rasgá-lo. As cartas aparecem já viradas pra cima, uma de cada vez — é só ir tocando pra passar pra próxima. Todo booster traz pelo menos 1 foil garantido, com uma chance pequena de sair mais de um.</p>
+  </header>
+
+  <div class="stage" id="stageEl">
+
+    <div class="pack-zone" id="packZone">
+      <div class="pack" id="packEl">
+        <div class="pack-face">
+          <div class="pack-mark">HOB</div>
+          <div class="pack-ring">
+            <svg viewBox="0 0 64 64" fill="none">
+              <circle cx="32" cy="32" r="22" stroke="#e8c25e" stroke-width="2"/>
+              <path d="M32 14 L36 28 L50 32 L36 36 L32 50 L28 36 L14 32 L28 28 Z" fill="#e8c25e" opacity="0.85"/>
+            </svg>
+          </div>
+          <div class="pack-title">THE HOBBIT<small>Play Booster · Bilbo's Journey</small></div>
+        </div>
+      </div>
+      <button class="open-btn" id="openBtn">Abrir o Booster</button>
+      <p class="count-note" id="countNote">Boosters abertos nesta sessão: 0</p>
+    </div>
+
+    <div class="reveal" id="revealZone">
+      <div class="reveal-head">
+        <h2>REVELANDO SUAS CARTAS</h2>
+        <span class="prog" id="progNote">carta 1 de 15</span>
+      </div>
+      <p class="tap-hint" id="tapHint">toque na carta pra ver a próxima</p>
+
+      <div class="stack-zone" id="stackZone"></div>
+
+      <div class="detail" id="detail"></div>
+
+      <div class="actions-row">
+        <button class="ghost-btn" id="revealAllBtn">Revelar tudo</button>
+        <button class="ghost-btn" id="againBtn" style="display:none">Abrir outro booster</button>
+      </div>
+
+      <div class="collected" id="collectedWrap" style="display:none">
+        <p class="collected-label">JÁ REVELADAS</p>
+        <div class="strip" id="strip"></div>
+      </div>
+
+      <div class="summary" id="summary" style="display:none">
+        <h2>BOOSTER COMPLETO</h2>
+        <div class="total" id="totalPrice">R$ 0,00</div>
+        <p class="sub" id="summarySub"></p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="collection-panel" id="collectionPanel">
+    <div class="coll-head">
+      <h2>SUA COLEÇÃO</h2>
+      <span class="coll-count" id="collCount">0 / 0 cartas descobertas</span>
+    </div>
+    <div class="coll-grid" id="collGrid"></div>
+    <button class="ghost-btn tiny" id="clearCollBtn">Limpar coleção</button>
+  </div>
+
+  <footer id="footerNote">
+    Simulador não-oficial, feito para fins de entretenimento. Nomes, custos de mana, tipos e raridades de <em>Magic: The Gathering — The Hobbit</em> são dados públicos do jogo; as artes são ilustrações originais em CSS, sem reprodução das artes oficiais da Wizards of the Coast. Preços em R$ são estimativas de referência no estilo do mercado de LigaMagic para um set recém-lançado — não há API pública de preços do LigaMagic nem chamadas de rede ao vivo nesta página, então os valores não são cotações em tempo real. Sua coleção fica salva localmente neste navegador (localStorage) — abrir em outro navegador ou dispositivo começa uma coleção nova.
+  </footer>
+
+</div>
+
+<div class="mythic-flash" id="mythicFlash"></div>
+
+<script src="main.js"></script>
+</body>
+</html>
