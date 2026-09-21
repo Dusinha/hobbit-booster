@@ -33,8 +33,8 @@
 /* Edições disponíveis na Loja. Pra adicionar uma nova coleção, basta
    incluir mais uma entrada aqui com o código do set na Scryfall. */
 const SETS = [
-  { code:'hob', name:'The Hobbit', mark:'HOB', boxImage:'./imagens/HOB - BOX.png', packImage:'./imagens/HOB - BOOSTER.png' },
-  { code:'fra', name:'Reality Fracture', mark:'FRA', boxImage:'./imagens/FRC - BOX.png', packImage:'./imagens/FRC - BOOSTER.png' }
+  { code:'hob', name:'The Hobbit', mark:'HOB', boxImage:'https://i.postimg.cc/gcZVxgd4/HOB-BOX.png', packImage:'https://i.postimg.cc/xjzvX6Y4/HOB-BOOSTER.png' },
+  { code:'fra', name:'Reality Fracture', mark:'FRA', boxImage:'https://i.postimg.cc/05wYzVx0/FRC-BOX.png', packImage:'https://i.postimg.cc/vTffCZ3m/FRC-BOOSTER.png' }
 ];
 const SET_BY_CODE = Object.fromEntries(SETS.map(s => [s.code, s]));
 
